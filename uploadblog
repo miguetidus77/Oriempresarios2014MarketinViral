@@ -1,0 +1,5 @@
+<?php
+$string='<a href="">';
+$result=str_replace('<', '[', $string);
+echo $result;
+?>

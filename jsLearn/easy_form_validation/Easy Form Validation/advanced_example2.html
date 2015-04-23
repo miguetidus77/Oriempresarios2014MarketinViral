@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Easy Form Validation</title>
+
+<script type="text/javascript" src="easy_validation.js"></script>
+<script type="text/javascript">
+	
+	function validate()
+	{
+		var v = new Validator(); //create a new Validator object called v
+		
+		//tell the validator to display the errors on the page
+		v.setOutputType("DIV");
+		//tell the validator which Div to show the errors in
+		v.setOutputDivId("validation_errors");
+		
+		var t = new ErrorTemplate(); //create a new template object
+		t.setHeader	("<h2 style='color:red;'>Oops! Some errors occured!!</h2>");
+		t.setItem	("<img src='x.gif' alt='error' /> {ERROR_MESSAGE}<br />"); //this line will be reprated with each error
+		t.setFooter	("<br />Please correct these errors.");
+		
+		v.setErrorTemplate(t); //assign the new template object to the Validator for use
+		
+		//setup the fields we want to validate
+		
+		//			NAME				VALIDATION		ELEMENT ID		CUSTOM ERROR MESSAGE
+		v.addField("Your Name", 		"NAME", 		"my_name");
+		v.addField("Your Number", 		"NUMBER", 		"my_number");
+		v.addField("Your Date", 		"DATE", 		"dob");
+		v.addField("Your Text", 		"NOT_EMPTY", 	"line1");
+		v.addField("Email address", 	"EMAIL", 		"email");
+		v.addField("Terms",				"CHECKBOX",		"terms", 		"You must accept our terms!!");
+		
+		//call the validateForm methos and return the result to the form element
+		return v.validateForm();
+	}
+	
+</script>
+
+</head>
+
+<body style="font-size:13px;font-family:Arial, Helvetica, sans-serif;">
+
+<h1>Advanced Usage</h1>
+
+<p>This example will output the errors on the page. It deomonstrates how to create your own template for the error messages.</p>
+
+<div id="validation_errors"></div>
+
+<br />
+
+<form name="contact_us" method="post" action="advanced_example2.html" onsubmit="return validate();" />
+Enter your Name: <input type="text" id="my_name" value="Chris" /><br />
+Enter a number: <input type="text" id="my_number" value="89" /><br />
+Enter a date: <input type="text" id="dob" value="01/01/2008" /><br />
+Enter some text: <input type="text" id="line1" value="abcdefg" /><br />
+Email address: <input type="text" id="email" value="chris@chriscrossonline.co.uk" /><br />
+Do you accept our terms? <input type="checkbox" id="terms" />
+
+<input type="submit" name="submit_button" />
+</form>
+
+</body>
+</html>

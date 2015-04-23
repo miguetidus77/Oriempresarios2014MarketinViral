@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Easy Form Validation</title>
+
+<script type="text/javascript" src="easy_validation.js"></script>
+<script type="text/javascript">
+	
+	function validatePasswordFields()
+	{
+		//this is the custom validation function we use. It can do anything, however it must return true or false.
+	
+		var pass1 = document.getElementById("password1").value;
+		var pass2 = document.getElementById("password2").value;
+		
+		var output = false;
+		
+		if(pass1 == pass2)
+		{
+			output = true;
+		}
+		
+		return output;
+	}
+	
+	function validate()
+	{
+		var v = new Validator(); //create a new Validator object called v
+
+		//tell the validator to display the errors on the page
+		v.setOutputType("DIV");
+		//tell the validator which Div to show the errors in
+		v.setOutputDivId("validation_errors");
+				
+		//setup the fields we want to validate
+		
+		//			NAME				VALIDATION		ELEMENT ID		CUSTOM ERROR MESSAGE
+		v.addField("Your Name", 		"NAME", 		"my_name");
+		
+		//add a custom validation function
+		v.addCustomValidation(validatePasswordFields, "Passwords do not match!!"); //passing in the function name and the error message to display
+		
+		//call the validateForm methos and return the result to the form element
+		return v.validateForm();
+	}
+	
+</script>
+
+</head>
+
+<body style="font-size:13px;font-family:Arial, Helvetica, sans-serif;">
+
+<h1>Advanced Usage</h1>
+
+<p>This example will output the errors on the page. It deomonstrates how to create your own custom validation for the Validator to handle.</p>
+
+<div id="validation_errors"></div>
+
+<form name="contact_us" method="post" action="advanced_example3.html" onsubmit="return validate();" />
+Enter your Name: <input type="text" id="my_name" value="Chris" /><br />
+Enter a password: <input type="password" id="password1" value="Chris" /><br />
+Confirm the password: <input type="password" id="password2" value="Chris" /><br />
+
+<input type="submit" name="submit_button" />
+</form>
+
+</body>
+</html>
